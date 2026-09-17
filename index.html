@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101c2b">
+  <title>Cadet Lounge Foosball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">CADET LOUNGE • LIVE STANDINGS</p>
+        <h1>Foosball<br><span>Leaderboard</span></h1>
+        <p class="subtitle">Challenge the room. Record the result. Climb the ranks.</p>
+      </div>
+      <div class="status" id="connectionStatus" aria-live="polite">
+        <span class="status-dot"></span><span>Connecting…</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="stats-strip" aria-label="Season totals">
+        <div><strong id="playerCount">0</strong><span>Players</span></div>
+        <div><strong id="gameCount">0</strong><span>Matches</span></div>
+        <div><strong id="leaderName">—</strong><span>Current leader</span></div>
+      </section>
+
+      <div class="main-grid">
+        <section class="panel leaderboard-panel">
+          <div class="panel-heading">
+            <div><p class="section-label">RANKINGS</p><h2>Leaderboard</h2></div>
+            <button class="icon-button" id="refreshButton" type="button" title="Refresh standings" aria-label="Refresh standings">↻</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Rank</th><th>Player</th><th>W</th><th>L</th><th>Win %</th><th>Pts</th></tr></thead>
+              <tbody id="leaderboardBody"></tbody>
+            </table>
+            <div class="empty-state" id="leaderboardEmpty">
+              <div class="empty-icon">⚑</div>
+              <h3>No rankings yet</h3>
+              <p>Add two players and record the first match.</p>
+            </div>
+          </div>
+        </section>
+
+        <aside class="actions-column">
+          <section class="panel action-panel">
+            <p class="section-label">NEW RESULT</p>
+            <h2>Record a match</h2>
+            <form id="gameForm">
+              <label for="playerOne">Player 1</label>
+              <select id="playerOne" required><option value="">Select player</option></select>
+              <div class="versus">VS</div>
+              <label for="playerTwo">Player 2</label>
+              <select id="playerTwo" required><option value="">Select player</option></select>
+              <label for="winner">Winner</label>
+              <select id="winner" required disabled><option value="">Choose both players first</option></select>
+              <button class="primary-button" id="recordGameButton" type="submit">Record Match</button>
+            </form>
+          </section>
+
+          <section class="panel add-player-panel">
+            <p class="section-label">ROSTER</p>
+            <h2>Add a player</h2>
+            <form id="playerForm" class="inline-form">
+              <label class="sr-only" for="playerName">Player name</label>
+              <input id="playerName" maxlength="32" autocomplete="off" placeholder="Cadet name" required>
+              <button type="submit" aria-label="Add player">+</button>
+            </form>
+          </section>
+        </aside>
+      </div>
+
+      <section class="panel history-panel">
+        <div class="panel-heading"><div><p class="section-label">MATCH LOG</p><h2>Recent games</h2></div></div>
+        <div id="gameHistory" class="history-list"></div>
+        <div class="empty-state compact" id="historyEmpty"><p>No matches recorded yet.</p></div>
+      </section>
+    </main>
+
+    <footer><span>3 points per win</span><span>•</span><span>Live across every device</span></footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
